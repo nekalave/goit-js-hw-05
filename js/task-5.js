@@ -8,7 +8,7 @@ class Car {
     }
 
     static getSpecs(car) {
-        console.log(`maxSpeed: ${car.maxSpeed}, speed:${car.speed}, isOn:${car.isOn}, distance:${car.distance}, price:${car.price}`)
+        alert(`maxSpeed: ${car.maxSpeed}, speed:${car.speed}, isOn:${car.isOn}, distance:${car.distance}, price:${car.price}`)
     }
 
     get price() {
@@ -45,10 +45,13 @@ class Car {
                 alert('Turn on the car!');
             } else if (this.speed === 0 && (acceleration + this.speed) <= this.maxSpeed) {
                 this.speed = acceleration;
+                alert(`Your current speed is ${this.speed}km/h`)
             } else if (acceleration + this.speed <= this.maxSpeed) {
                 this.speed += acceleration;
+                alert(`Your current speed is ${this.speed}km/h`)
             } else {
                 this.speed = this.maxSpeed;
+                alert(`You've reached maximum speed ${this.speed}km/h`)
             }
         }
     }
@@ -66,8 +69,10 @@ class Car {
                 alert('speed already: 0km/h');
             } else if (this.speed - deceleration <= 0) {
                 this.speed = 0;
+                alert(`Your current speed is ${this.speed}km/h`)
             } else {
                 this.speed = this.speed - deceleration;
+                alert(`Your current speed is ${this.speed}km/h`)
             }
         }
     }
@@ -112,9 +117,9 @@ document.addEventListener('DOMContentLoaded', function () {
         mustang.drive(prompt('indicate the time you would like to travel'));
     });
     document.getElementById('task-5-button-7').addEventListener('click', function () {
-        console.log(mustang.price);
+        alert(mustang.price);
     });
     document.getElementById('task-5-button-8').addEventListener('click', function () {
-        mustang.price = prompt('Enter a Mustang price');
+        mustang.price = prompt('Enter a Car price');
     });
 });
