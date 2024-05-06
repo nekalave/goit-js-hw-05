@@ -1,7 +1,6 @@
-
 # Критерії прийому
 
-- Створено репозиторій `goit-js-hw-03`
+- Створено репозиторій `goit-js-hw-05`
 - При здачі домашньої роботи є посилання на вихідні файли в репозиторії
 - Кожне завдання виконано в окремому файлі з ім'ям `task-номер_завдання.js`.
   Використовуй `<script type="module">` щоб закрити код завдання в окремій
@@ -11,240 +10,193 @@
 
 # Завдання 1
 
-Напиши скрипт, який, для об'єкта `user`, послідовно:
-
-- додає поле `mood` зі значенням `'happy'`
-- замінює значення `hobby` на `'skydiving'`
-- замінює значення `premium` на `false`
-- виводить вміст об'єкта `user` в форматі `ключ:значення` використовуючи
-  `Object.keys()` і `for...of`
+Напиши функцію-конструктор `Account`, яка створює об'єкт з властивостями `login`
+і `email`. В `prototype` функції-конструктора добав метод `getInfo()`, який
+виводить в консоль значення полів `login` і `email` об'єкта який його викликав.
 
 ```js
-const user = {
-  name: 'Mango',
-  age: 20,
-  hobby: 'html',
-  premium: true,
-};
+console.log(Account.prototype.getInfo); // function
+
+const mango = new Account({
+  login: 'Mangozedog',
+  email: 'mango@dog.woof',
+});
+
+mango.getInfo(); // Login: Mangozedog, Email: mango@dog.woof
+
+const poly = new Account({
+  login: 'Poly',
+  email: 'poly@mail.com',
+});
+
+poly.getInfo(); // Login: Poly, Email: poly@mail.com
 ```
 
 # Завдання 2
 
-Напиши функцію `countProps(obj)`, яка рахує кількість властивостей в об'єкті.
-Функція повертає число - кількість властивостей.
+Напиши клас `User` для створення користувача з наступними властивостями:
+
+- `name` - рядок
+- `age` - число
+- `followers` - число
+
+Добав метод `getInfo()`, який, виводить рядок:
+`User ${ім'я} is ${вік} years old and has ${кількість фоловерів} followers`
 
 ```js
-const countProps = function (obj) {
-  // твій код
-};
+const mango = new User({
+  name: 'Mango',
+  age: 2,
+  followers: 20,
+});
 
-/*
- * Викличи функції для перевірки працездатності твоєї реалізації.
- */
-console.log(countProps({})); // 0
+mango.getInfo(); // User Mango is 2 years old and has 20 followers
 
-console.log(countProps({ name: 'Mango', age: 2 })); // 2
+const poly = new User({
+  name: 'Poly',
+  age: 3,
+  followers: 17,
+});
 
-console.log(countProps({ mail: 'poly@mail.com', isOnline: true, score: 500 })); // 3
+poly.getInfo(); // User Poly is 3 years old and has 17 followers
 ```
 
 # Завдання 3
 
-Напиши функцію `findBestEmployee(employees)`, яка приймає об'єкт співробітників
-і повертає ім'я найпродуктивнішого (який виконав більше всіх задач).
-Співробітники і кількість виконаних завдань містяться як властивості об'єкта в
-форматі `"ім'я":"кількість задач"`.
+Напиши клас `Storage`, який буде створювати об'єкти для управління складом
+товарів. При виклику буде отримувати один аргумент - початковий масив товарів, і
+записувати його у властивість `items`.
+
+Додай методи класу:
+
+- `getItems()` - повертає масив поточних товарів
+- `addItem(item)` - отримує новий товар і додає його до поточних
+- `removeItem(item)` - отримує товар і, якщо він є, видаляє його з поточних
 
 ```js
-const findBestEmployee = function (employees) {
-  // твій код
-};
+const storage = new Storage([
+  'Нанітоіди',
+  'Пролонгер',
+  'Залізні жупи',
+  'Антигравітатор',
+]);
 
-/*
- * Викличи функції для перевірки працездатності твоєї реалізації.
- */
-console.log(
-  findBestEmployee({
-    ann: 29,
-    david: 35,
-    helen: 1,
-    lorence: 99,
-  }),
-); // lorence
+const items = storage.getItems();
+console.table(items); // [ "Нанітоіди", "Пролонгер", "Залізні жупи", "Антигравітатор" ]
 
-console.log(
-  findBestEmployee({
-    poly: 12,
-    mango: 17,
-    ajax: 4,
-  }),
-); // mango
+storage.addItem('Дроїд');
+console.table(storage.items); // [ "Нанітоіди", "Пролонгер", "Залізні жупи", "Антигравітатор", "Дроїд" ]
 
-console.log(
-  findBestEmployee({
-    lux: 147,
-    david: 21,
-    kiwi: 19,
-    chelsy: 38,
-  }),
-); // lux
+storage.removeItem('Пролонгер');
+console.table(storage.items); // [ "Нанітоіди", "Залізні жупи", "Антигравітатор", "Дроїд" ]
 ```
 
 # Завдання 4
 
-Напиши функцію `countTotalSalary(employees)` приймаючу об'єкт зарплат. Функція
-рахує загальну суму зарплати працівників і повертає її. Кожне поле об'єкта,
-переданого в функцію, має вигляд `"ім'я":"зарплата"`.
+Напиши клас `StringBuilder`. На вхід він отримує один параметр - рядок,
+який записує у властивість `_value`.
+
+Додай класу наступний функціонал:
+
+- Геттер `value` - повертає поточне значення поля `_value`
+- Метод `append(str)` - отримує параметр str (рядок) і додає його в кінець
+  `_value`
+- Метод `prepend(str)` - отримує параметр str (рядок) і додає його на початок
+  `_value`
+- Метод `pad(str)` - отримує параметр str (рядок) і додає його на початок і в кінець `_value`
 
 ```js
-const countTotalSalary = function (employees) {
-  // твій код
-};
+const builder = new StringBuilder('.');
 
-/*
- * Викличи функції для перевірки працездатності твоєї реалізації.
- */
-console.log(countTotalSalary({})); // 0
+builder.append('^');
+console.log(builder.value); // '.^'
 
-console.log(
-  countTotalSalary({
-    mango: 100,
-    poly: 150,
-    alfred: 80,
-  }),
-); // 330
+builder.prepend('^');
+console.log(builder.value); // '^.^'
 
-console.log(
-  countTotalSalary({
-    kiwi: 200,
-    lux: 50,
-    chelsy: 150,
-  }),
-); // 400
+builder.pad('=');
+console.log(builder.value); // '=^.^='
 ```
 
 # Завдання 5
 
-Напиши функцію `getAllPropValues(arr, prop)`, яка отримує масив об'єктів і ім'я
-властивості. Повертає масив значень певної властивості `prop` з кожного об'єкта
-в масиві.
+Напиши клас `Car` із зазначеними властивостями і методами.
 
 ```js
-const products = [
-  { name: 'Радар', price: 1300, quantity: 4 },
-  { name: 'Сканер', price: 2700, quantity: 3 },
-  { name: 'Дроїд', price: 400, quantity: 7 },
-  { name: 'Захоплення', price: 1200, quantity: 2 },
-];
-
-const getAllPropValues = function (arr, prop) {
-  // твій код
-};
-
-/*
- * Викличи функції для перевірки працездатності твоєї реалізації.
- */
-console.log(getAllPropValues(products, 'name')); // ['Радар', 'Сканер', 'Дроїд', 'Захоплення']
-
-console.log(getAllPropValues(products, 'quantity')); // [4, 3, 7, 2]
-
-console.log(getAllPropValues(products, 'category')); // []
-```
-
-# Завдання 6
-
-Напиши функцію `calculateTotalPrice(allProdcuts, productName)`, яка отримує
-масив об'єктів та ім'я продукту (значення властивості `name`). Повертає загальну
-вартість продукту (ціна \* кількість).
-
-Викличи функції для перевірки працездатності твоєї реалізації.
-
-```js
-const products = [
-  { name: 'Радар', price: 1300, quantity: 4 },
-  { name: 'Сканер', price: 2700, quantity: 3 },
-  { name: 'Дроїд', price: 400, quantity: 7 },
-  { name: 'Захоплення', price: 1200, quantity: 2 },
-];
-
-const calculateTotalPrice = function (allProdcuts, productName) {
-  // твій код
-};
-
-/*
- * Викличи функції для перевірки працездатності твоєї реалізації.
- */
-console.log(calculateTotalPrice(products, 'Радар')); // 5200
-
-console.log(calculateTotalPrice(products, 'Дроїд')); // 2800
-```
-
-# Завдання 7 - додаткове, виконувати не обов'язково
-
-Напиши сценарій керування особистим кабінетом інтернет-банку. Є об'єкт `account`
-в якому необхідно реалізувати методи для роботи з балансом та історією
-транзакцій.
-
-```js
-/*
- * Типів транзацкій всього два.
- * Можна покласти або зняти гроші з рахунку.
- */
-const Transaction = {
-  DEPOSIT: 'deposit',
-  WITHDRAW: 'withdraw',
-};
-
-/*
- * Кожна транзакція - це об'єкт з властивостями: id, type і amount
- */
-
-const account = {
-  // Поточний баланс рахунку
-  balance: 0,
-
-  // Історія транзакцій
-  transactions: [],
-
+class Car {
   /*
-   * Метод створює і повертає об'єкт транзакції.
-   * Приймає суму і тип транзакції.
+   * Додай статичний метод `getSpecs(car)`,
+   * який приймає об'єкт-машину як параметр і виводить
+   * в консоль значення властивостей maxSpeed, speed, isOn, distance и price.
    */
-  createTransaction(amount, type) {},
 
   /*
-   * Метод відповідає за додавання суми до балансу.
-   * Приймає суму танзакції.
-   * Викликає createTransaction для створення об'єкта транзакції
-   * після чого додає його в історію транзакцій
-   */
-  deposit(amount) {},
-
-  /*
-   * Метод відповідає за зняття суми з балансу.
-   * Приймає суму танзакції.
-   * Викликає createTransaction для створення об'єкта транзакції
-   * після чого додає його в історію транзакцій.
+   * Конструктор отримує об'єкт налаштувань.
    *
-   * Якщо amount більше, ніж поточний баланс, виводь повідомлення
-   * про те, що зняття такої суми не можливо, недостатньо коштів.
+   * Додай властивості майбутнього екземпляра класу:
+   *  speed - поточна швидкість, початкова 0
+   *  price - ціна автомобіля
+   *  maxSpeed - максимальна швидкість
+   *  isOn - заведений автомобіль, значення true або false. Спочатку false
+   *  distance - загальний кілометраж, спочатку 0
    */
-  withdraw(amount) {},
+  constructor() {}
 
   /*
-   * Метод повертає поточний баланс
+   * Додай геттер і сеттер для властивості price,
+   * який буде працювати з властивістю ціни автомобіля.
    */
-  getBalance() {},
 
   /*
-   * Метод шукає і повертає об'єкт транзакції по id
+   * Додай код для того, щоб завести автомобіль
+   * Записує у властивість isOn значення true
    */
-  getTransactionDetails(id) {},
+  turnOn() {}
 
   /*
-   * Метод повертає кількість коштів
-   * певного типу транзакції з усієї історії транзакцій
+   * Додай код для того, щоб заглушити автомобіль
+   * Записує у властивість isOn значення false,
+   * і скидає поточну швидкість в 0
    */
-  getTransactionTotal(type) {},
-};
+  turnOff() {}
+
+  /*
+   * Додає до властивості speed отримане значення,
+   * за умови, що результуюча швидкість
+   * не більше, ніж значення властивості maxSpeed
+   */
+  accelerate(value) {}
+
+  /*
+   * Забирає від властивості speed отримане значення,
+   * за умови, що результуюча швидкість не менше нуля
+   */
+  decelerate(value) {}
+
+  /*
+   * Додає в поле distance кілометраж (hours * speed),
+   * але тільки в тому випадку, якщо машина заведена!
+   */
+  drive(hours) {}
+}
+
+const mustang = new Car({ maxSpeed: 200, price: 2000 });
+
+mustang.turnOn();
+mustang.accelerate(50);
+mustang.drive(2);
+
+Car.getSpecs(mustang);
+// maxSpeed: 200, speed: 50, isOn: true, distance: 100, price: 2000
+
+mustang.decelerate(20);
+mustang.drive(1);
+mustang.turnOff();
+
+Car.getSpecs(mustang);
+// maxSpeed: 200, speed: 0, isOn: false, distance: 130, price: 2000
+
+console.log(mustang.price); // 2000
+mustang.price = 4000;
+console.log(mustang.price); // 4000
 ```
