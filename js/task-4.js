@@ -1,43 +1,32 @@
+class StringBuilder {
+    constructor(initialItems) {
+        this._value = initialItems;
+    }
+    get value () {
+        return this._value;
+    }
+    append(str) {
+        this._value = this._value.concat(str);
+    }
+    prepend(str) {
+        this._value = str.concat(this._value);
+    }
+    pad(str) {
+        this._value = str.concat(this._value).concat(str);
+    }
+}
+const builder = new StringBuilder('.');
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('task-4-button-1').addEventListener('click', function() {
-        const countTotalSalary = function (employees) {
-            const values = Object.values(employees);
-            let total = 0;
-            for (const value of values) {
-                total += value;
-            }
-            alert(total)
-        };
-        countTotalSalary({});
+        builder.append('^');
+        console.log(builder.value);
     });
     document.getElementById('task-4-button-2').addEventListener('click', function() {
-            const countTotalSalary = function (employees) {
-                const values = Object.values(employees);
-                let total = 0;
-                for (const value of values) {
-                    total += value;
-                }
-                alert(total)
-        };
-            countTotalSalary({
-                mango: 100,
-                poly: 150,
-                alfred: 80,
-            });
+        builder.prepend('^');
+        console.log(builder.value);
     });
     document.getElementById('task-4-button-3').addEventListener('click', function() {
-            const countTotalSalary = function (employees) {
-                const values = Object.values(employees);
-                let total = 0;
-                for (const value of values) {
-                    total += value;
-                }
-                alert(total)
-        };
-            countTotalSalary({
-                kiwi: 200,
-                lux: 50,
-                chelsy: 150,
-            });
+        builder.pad('=');
+        console.log(builder.value);
     });
 });

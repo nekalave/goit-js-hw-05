@@ -1,64 +1,43 @@
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('task-3-button-1').addEventListener('click', function() {
-        const findBestEmployee = function (employees) {
-            const values = Object.values(employees);
-            const keys = Object.keys(employees);
-            let init = 0;
-            let bestEmployee;
-            for (let i = 0; i < values.length; i += 1) {
-                if (init < values[i]) {
-                    init = values[i];
-                    bestEmployee = i
-                }
-            }
-            alert(keys[bestEmployee])
-        };
-            findBestEmployee({
-                ann: 29,
-                david: 35,
-                helen: 1,
-                lorence: 99,
-            })
+class Storage {
+    constructor(initialItems) {
+        this.items = initialItems || [];
+    }
+
+    getItems() {
+        return this.items;
+    }
+
+    addItem(item) {
+        this.items.push(item);
+    }
+
+    removeItem(item) {
+        const index = this.items.indexOf(item);
+        if (index !== -1) {
+            this.items.splice(index, 1);
+        }
+    }
+}
+
+const storage = new Storage([
+    'Нанітоіди',
+    'Пролонгер',
+    'Залізні жупи',
+    'Антигравітатор',
+]);
+
+const items = storage.getItems();
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('task-3-button-1').addEventListener('click', function () {
+
+        console.table(items);
     });
-    document.getElementById('task-3-button-2').addEventListener('click', function() {
-        const findBestEmployee = function (employees) {
-            const values = Object.values(employees);
-            const keys = Object.keys(employees);
-            let init = 0;
-            let bestEmployee;
-            for (let i = 0; i < values.length; i += 1) {
-                if (init < values[i]) {
-                    init = values[i];
-                    bestEmployee = i
-                }
-            }
-            alert(keys[bestEmployee])
-        };
-        findBestEmployee({
-            poly: 12,
-            mango: 17,
-            ajax: 4,
-        })
+    document.getElementById('task-3-button-2').addEventListener('click', function () {
+        storage.addItem('Дроїд');
+        console.table(storage.items);
     });
-    document.getElementById('task-3-button-3').addEventListener('click', function() {
-        const findBestEmployee = function (employees) {
-            const values = Object.values(employees);
-            const keys = Object.keys(employees);
-            let init = 0;
-            let bestEmployee;
-            for (let i = 0; i < values.length; i += 1) {
-                if (init < values[i]) {
-                    init = values[i];
-                    bestEmployee = i
-                }
-            }
-            alert(keys[bestEmployee])
-        };
-        findBestEmployee({
-            lux: 147,
-            david: 21,
-            kiwi: 19,
-            chelsy: 38,
-        })
+    document.getElementById('task-3-button-3').addEventListener('click', function () {
+        storage.removeItem('Пролонгер');
+        console.table(storage.items);
     });
 });
